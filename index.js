@@ -18,16 +18,16 @@ const server = http.createServer((req,res) => {
     else if (url.startsWith("/users/") && method =="GET"){
         const id = parseInt(url.split("/")[2])
         const findUser = userArr.find((user) => user.id === id) 
-
         if(!findUser){
             res.writeHead(404)
             return res.end(JSON.stringify({message:"ERROR"}))
         }
-
         res.writeHead(200)
         res.end(JSON.stringify(findUser))
     }
+
     // CREATE NEW UESR
+
     else if(method === "POST" && url ==="/users/"){
         let body = ''
         req.on("data", chunck=> {
@@ -41,6 +41,7 @@ const server = http.createServer((req,res) => {
             res.end(JSON.stringify(newUser))
         })
     }
+
     else if(method == "PUT" && url.startsWith("/users/")){
         const id = parseInt(url.split("/")[2])
         const index = userArr.findIndex((user) => user.id === id) 
@@ -60,6 +61,7 @@ const server = http.createServer((req,res) => {
         })
     }
 })
+
 server.listen(port, () =>{
     console.log(`sever work on http://localhost:${port} `)
 })
